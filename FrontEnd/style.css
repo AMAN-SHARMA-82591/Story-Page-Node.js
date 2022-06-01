@@ -1,0 +1,14 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.main_logo {
+    width: 250px;
+    height: 100px;
+}
