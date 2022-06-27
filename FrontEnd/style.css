@@ -7,8 +7,51 @@ body {
     box-sizing: border-box;
     font-family: sans-serif;
 }
-
+.logo_div{
+    text-align: center;
+}
 .main_logo {
-    width: 250px;
+    width: 110px;
     height: 100px;
+    margin: 10px 0 20px 0;
+}
+.main_header_section {
+    border-bottom: 2px solid rgba(128, 128, 128, 0.485);
+}
+.main_header_section ul{
+    width: 50%;
+    justify-content: space-between;
+    display: flex;
+    margin: 10px auto;
+    list-style: none;
+    text-decoration: none;
+}
+.main_header_section li{
+    font-size: 20px;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+
+.list_item.active {
+    color: grey;
+}
+
+#story_details_sec{
+    margin: 30px 0 0 0;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.story_details_item{
+    width: 350px;
+    height: 400px;
+}
+.story_details_item img{
+    width: 90%;
+    height: 300px;
+}
+.story_details_item h1{
+    text-align: center;
 }
