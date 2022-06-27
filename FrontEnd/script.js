@@ -1,76 +1,56 @@
 let storySection = document.querySelector("#story_details_sec");
+let bestStorySection = document.querySelector('#bestStory_details_sec');
+let newStorySection = document.querySelector('#newStory_details_sec');
+let allStorySection = document.querySelector('#allStory_details_sec');
 
-//Get Story Detail
-async function getStoryDetails(num) {
-    return await fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${num}.json`
-    )
-        .then((response) => response.json())
-        .then((data) => data);
-}
+fetch('http://localhost:5000/')
+.then(response => response.json())
+.then(data => {
+    data.forEach(post => {
+        storySection.innerHTML += `<div class="story_details_item">
+        <h1>${post.id}</h1><br>
+        <h3>${post.description}</h3><br>
+        <a href="${post.url}">${post.id}</a><br>
+        </div>`
+    })
+})
+.catch(error => console.error(error));
 
-//Top Stories
-async function getTopStories() {
-    let TotalData = [];
-    await fetch(
-        "https://hacker-news.firebaseio.com/v0/topstories.json"
-    )
-        .then((response) => response.json())
-        .then((data) => {
-            data.slice(0, 10).map((value) => {
-                getStoryDetails(value)
-                    .then((data) => {
-                        TotalData.push(data);
-                        TotalData.slice(0, 10).map((data) => {
-                            const {by, title, url} = data;
-                            storySection.innerHTML += `
-                            <div class="story_details_item">
-                                <img src='${url}' alt="">
-                                <h1>${by}</h1>
-                            </div>
-                            `
-                        })
-                    })
-                    .catch((error) => console.log(error));
-            })
-        });
-}
-getTopStories();
+fetch('http://localhost:5000/bestStories')
+.then(response => response.json())
+.then(data => {
+    data.forEach(post => {
+        bestStorySection.innerHTML += `<div class="story_details_item">
+        <h1>${post.id}</h1><br>
+        <h3>${post.description}</h3><br>
+        <a href="${post.url}">${post.id}</a><br>
+        </div>`
+    })
+})
+.catch(error => console.error(error));
 
-//New Stories
-async function getNewStories() {
-    let TotalData = [];
-    return await fetch(
-        "https://hacker-news.firebaseio.com/v0/newstories.json"
-    )
-        .then((response) => response.json())
-        .then((data) =>
-            data.map((value) => {
-                getStoryDetails(value)
-                    .then((data) => {
-                        TotalData.push(data);
-                        return TotalData;
-                    })
-                    .catch((error) => console.log(error));
-            })
-        );
-}
+fetch('http://localhost:5000/newStories')
+.then(response => response.json())
+.then(data => {
+    data.forEach(post => {
+        newStorySection.innerHTML += `<div class="story_details_item">
+        <h1>${post.id}</h1><br>
+        <h3>${post.description}</h3><br>
+        <a href="${post.url}">${post.id}</a><br>
+        </div>`
+    })
+})
+.catch(error => console.error(error));
 
-//Best Stories
-async function getBestStories() {
-    let TotalData = [];
-    const response = await fetch(
-        "https://hacker-news.firebaseio.com/v0/beststories.json"
-    )
-        .then((response) => response.json())
-        .then((data) =>
-            data.map((value) => {
-                getStoryDetails(value)
-                    .then((data) => {
-                        TotalData.push(data);
-                        return TotalData;
-                    })
-                    .catch((error) => console.log(error));
-            })
-        );
-}
+fetch('http://localhost:5000/allStories')
+.then(response => response.json())
+.then(data => {
+    data.forEach(post => {
+        allStorySection.innerHTML += `<div class="story_details_item">
+        <h1>${post.id}</h1><br>
+        <h3>${post.description}</h3><br>
+        <a href="${post.url}">${post.id}</a><br>
+        </div>`
+    })
+})
+.catch(error => console.error(error));

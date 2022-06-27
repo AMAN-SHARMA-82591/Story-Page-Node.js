@@ -36,7 +36,7 @@ body {
     color: grey;
 }
 
-#story_details_sec{
+#story_details_sec, #bestStory_details_sec, #newStory_details_sec, #allStory_details_sec{
     margin: 30px 0 0 0;
     padding: 0 40px;
     display: flex;
@@ -46,7 +46,11 @@ body {
 
 .story_details_item{
     width: 350px;
-    height: 400px;
+    height: 200px;
+    border: 1px solid black;
+    text-align: center;
+    align-items: center;
+    margin: 20px 10px;
 }
 .story_details_item img{
     width: 90%;
