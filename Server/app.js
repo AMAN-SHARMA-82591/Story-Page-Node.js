@@ -5,8 +5,9 @@ const app = express();
 
 
 app.use(cors());
+app.use(express.static('../FrontEnd'));
 
-app.get('/', (req, res) => {
+app.get('/topStories', (req, res) => {
   axios.get('https://jsonplaceholder.typicode.com/photos?print=pretty')
     .then((response) => {
       data = response.data;
@@ -68,4 +69,10 @@ app.get('/allStories', (req, res) => {
 
 app.listen(5000, () => {
   console.log('Server is Running');
+})
+
+
+app.post('/topStories', (req, res) => {
+  console.log('called!');
+  console.log(req.body);
 })

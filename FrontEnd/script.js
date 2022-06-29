@@ -3,11 +3,12 @@ let bestStorySection = document.querySelector('#bestStory_details_sec');
 let newStorySection = document.querySelector('#newStory_details_sec');
 let allStorySection = document.querySelector('#allStory_details_sec');
 
-fetch('http://localhost:5000/')
+fetch('/topStories')
 .then(response => response.json())
 .then(data => {
     data.forEach(post => {
-        storySection.innerHTML += `<div class="story_details_item">
+        storySection.innerHTML += `
+        <div onclick={handleClickButton(${post.id})} class="story_details_item">
         <h1>${post.id}</h1><br>
         <h3>${post.description}</h3><br>
         <a href="${post.url}">${post.id}</a><br>
@@ -16,7 +17,7 @@ fetch('http://localhost:5000/')
 })
 .catch(error => console.error(error));
 
-fetch('http://localhost:5000/bestStories')
+fetch('/bestStories')
 .then(response => response.json())
 .then(data => {
     data.forEach(post => {
@@ -29,7 +30,7 @@ fetch('http://localhost:5000/bestStories')
 })
 .catch(error => console.error(error));
 
-fetch('http://localhost:5000/newStories')
+fetch('/newStories')
 .then(response => response.json())
 .then(data => {
     data.forEach(post => {
@@ -42,7 +43,7 @@ fetch('http://localhost:5000/newStories')
 })
 .catch(error => console.error(error));
 
-fetch('http://localhost:5000/allStories')
+fetch('/allStories')
 .then(response => response.json())
 .then(data => {
     data.forEach(post => {
@@ -54,3 +55,15 @@ fetch('http://localhost:5000/allStories')
     })
 })
 .catch(error => console.error(error));
+
+function handleClickButton(postId) {
+    data = {'postId': postId};
+    options ={
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+    fetch('/topStories', options);
+}

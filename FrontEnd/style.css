@@ -45,6 +45,7 @@ body {
 }
 
 .story_details_item{
+    cursor: pointer;
     width: 350px;
     height: 200px;
     border: 1px solid black;
