@@ -2,6 +2,16 @@ let storySection = document.querySelector("#story_details_sec");
 let bestStorySection = document.querySelector('#bestStory_details_sec');
 let newStorySection = document.querySelector('#newStory_details_sec');
 let allStorySection = document.querySelector('#allStory_details_sec');
+let ListItem = document.querySelectorAll('.list_item');
+let ul = document.getElementById('unordered_list');
+
+ul.addEventListener('click', (event) => {
+    console.log(event.target.getAttribute('value'));
+})
+
+
+let Menu = []
+ListItem.forEach((list) => Menu.push(list.getAttribute('value')));
 
 fetch('/topStories')
 .then(response => response.json())
@@ -58,12 +68,14 @@ fetch('/allStories')
 
 function handleClickButton(postId) {
     data = {'postId': postId};
-    options ={
+    options = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     }
-    fetch('/topStories', options);
+    fetch('/topStories', options)
+    .then(response => response.json())
+    .then(data => console.log(data));
 }

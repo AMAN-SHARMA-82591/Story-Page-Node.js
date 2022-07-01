@@ -32,7 +32,13 @@ body {
     cursor: pointer;
 }
 
-.list_item.active {
+.list_item a{
+    text-decoration: none;
+    list-style: none;
+    color: black;
+}
+
+.list_item.active a{
     color: grey;
 }
 
