@@ -1,13 +1,14 @@
-let storySection = document.querySelector("#story_details_sec");
-let bestStorySection = document.querySelector('#bestStory_details_sec');
-let newStorySection = document.querySelector('#newStory_details_sec');
-let allStorySection = document.querySelector('#allStory_details_sec');
-let ListItem = document.querySelectorAll('.list_item');
-let ul = document.getElementById('unordered_list');
 let activeId = 0;
+let ul = document.getElementById('unordered_list');
+let ListItem = document.querySelectorAll('.list_item');
+let displayStory = document.querySelector('.particular_story');
+let storySection = document.querySelector("#story_details_sec");
+let allStorySection = document.querySelector('#allStory_details_sec');
+let newStorySection = document.querySelector('#newStory_details_sec');
+let bestStorySection = document.querySelector('#bestStory_details_sec');
 
 ListItem.forEach((list, i) => {
-  if(list.classList[1] === 'active') {
+  if (list.classList[1] === 'active') {
     activeId = i;
   }
 });
@@ -34,7 +35,7 @@ switch (activeId) {
       .then(data => {
         data.forEach(post => {
           bestStorySection.innerHTML += `
-          <div class="story_details_item">
+          <div onclick={handleClickButton(${post.id})} class="story_details_item">
           <h1>${post.id}</h1><br>
           <h3>${post.description}</h3><br>
           <a href="${post.url}">${post.id}</a><br>
@@ -49,7 +50,7 @@ switch (activeId) {
       .then(data => {
         data.forEach(post => {
           newStorySection.innerHTML += `
-            <div class="story_details_item">
+            <div onclick={handleClickButton(${post.id})} class="story_details_item">
             <h1>${post.id}</h1><br>
             <h3>${post.description}</h3><br>
             <a href="${post.url}">${post.id}</a><br>
@@ -64,7 +65,7 @@ switch (activeId) {
       .then(data => {
         data.forEach(post => {
           allStorySection.innerHTML += `
-          <div class="story_details_item">
+          <div onclick={handleClickButton(${post.id})} class="story_details_item">
           <h1>${post.id}</h1><br>
           <h3>${post.description}</h3><br>
           <a href="${post.url}">${post.id}</a><br>
@@ -102,5 +103,22 @@ function handleClickButton(postId) {
   }
   fetch('/topStories', options)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => {
+      document.querySelector('body').style.overflow = 'hidden';
+      displayStory.style.top = window.scrollY;
+      displayStory.style.display = 'block';
+      displayStory.innerHTML += `
+      <div class='particular_story_details'>
+        <div>
+          <h1>${data.id}</h1>
+          <p>${data.title}</p>
+          <a href=${data.url} target='_blank'>${data.url}</a>
+        </div>
+      </div>`
+    });
+}
+
+function closeDetailsSec() {
+  document.querySelector('body').style.overflow = 'auto';
+  displayStory.style.display = 'none';
 }
